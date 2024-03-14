@@ -7,7 +7,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site"));
   const navigate = useNavigate();
-  async function loginAction(data: any) {
+  async function loginAction(data: { data: string; token: string }) {
     //POSTING data to the api endpoint
     try {
       const response = await fetch(`your-api-endpoint/auth/login`, {
@@ -40,7 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useAuth() {
+export default function useAuth() {
   const myContext = useContext(AuthContext);
   if (!myContext)
     throw new Error("AuthContext must be used within AuthProvider");
