@@ -1,6 +1,6 @@
-import DashBoard from "./Home/DashBoard";
-import PrivateRoute from "./auth/PrivateRoute";
-import Login from "./auth/login/Login";
+import DashBoard from "./components/DashBoard";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./components/Login";
 import { AuthProvider } from "./hooks/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

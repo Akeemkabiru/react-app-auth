@@ -1,6 +1,6 @@
 import { useState } from "react";
-import useAuth from "../../hooks/AuthContext";
-
+import { UseAuth } from "../hooks/AuthContext";
+const auth = UseAuth();
 export type loginProps = {
   onClick: () => void;
 };
@@ -9,14 +9,12 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loginAction } = useAuth();
-
   const input = {
     email: email,
     password: password,
   };
   function handleSubmit() {
-    if (email !== "" && password !== "") loginAction(input);
+    if (email !== "" && password !== "") auth.loginAction(input);
     console.log(email, password);
   }
   return (

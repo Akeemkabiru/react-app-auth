@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({});
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
   const loginAction = async (data: { email: string; password: string }) => {
+    //Login and send data to the API endpoint
     try {
       const response = await fetch("your-api-endpoint/auth/login", {
         method: "POST",
@@ -17,10 +18,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify(data),
       });
       const res = await response.json();
+      //the response is an object of data containg the user and token as its element
       if (res.data) {
-        setUser(res.data.user);
+        setUser(res.data.user); //so that user information can be shared accross or displayed on dashboard
         setToken(res.token);
-        localStorage.setItem("site", res.token);
+        localStorage.setItem("site", res.token); // set the token to localstorage or cookies
         navigate("/dashboard");
         return;
       }
@@ -46,6 +48,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default AuthProvider;
 
-export const useAuth = () => {
+export const UseAuth = () => {
   return useContext(AuthContext);
 };

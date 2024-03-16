@@ -1,4 +1,4 @@
-import { loginProps } from "../login/Login";
+import { loginProps } from "./Login";
 
 export default function Register({ onClick }: loginProps) {
   return (

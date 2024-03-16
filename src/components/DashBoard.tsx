@@ -1,7 +1,5 @@
-import useAuth from "../hooks/AuthContext";
-
 export default function DashBoard() {
-  const { user, logOut } = useAuth();
+  const { user, logOut } = UserAuth();
   return (
     <div>
       <h1>Welcome {user?.userName}</h1>
