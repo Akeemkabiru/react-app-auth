@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+# React Authentication App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple React application that provides user authentication functionality. Users can log in by providing their username and password, and upon successful authentication, they are redirected to the dashboard page.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User login: Users can log in using their username and password.
+- Token-based authentication: Upon successful login, a token is received from the server, which is used to authenticate subsequent requests.
+- Protected routes: Certain routes are protected, meaning only authenticated users can access them.
+- Redirect to dashboard: Upon successful login, users are redirected to the dashboard page.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React: A JavaScript library for building user interfaces.
+- React Router: A routing library for React applications.
+- Fetch API: Used for making HTTP requests to the server.
+- LocalStorage: Used for storing the authentication token locally.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clone the repository:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the project directory:
+
+cd react-authentication-app
+
+3. Install dependencies:
+
+   npm install
+
+4. Open your web browser and navigate to `http://localhost:3000`.
+
+5. You will be directed to the login page. Enter your username and password and click the "Login" button.
+
+6. Upon successful authentication, you will be redirected to the dashboard page.
+
+## File Structure
+
+- `src/`
+  - `components/`: Contains React components.
+    - `Login.js`: Component for the login page.
+    - `Dashboard.js`: Component for the dashboard page.
+    - `PrivateRoute.js`: Component for defining protected routes.
+  - `contexts/`: Contains context files for managing authentication state.
+    - `AuthContext.js`: Context for managing authentication state.
+  - `App.js`: Main component where routes are defined.
+  - `index.js`: Entry point of the application.
+
+   
+
