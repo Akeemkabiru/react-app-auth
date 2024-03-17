@@ -1,5 +1,6 @@
+import React from "react";
 import { ContextConsumer } from "../hook/AuthContext";
-
+React;
 export default function DashBoard() {
   const { user, logOut } = ContextConsumer();
   return (

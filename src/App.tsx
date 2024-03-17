@@ -3,7 +3,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
 import { AuthProvider } from "./hook/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import React from "react";
+React;
 export default function App() {
   return (
     <div>
