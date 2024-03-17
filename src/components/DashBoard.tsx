@@ -1,5 +1,7 @@
+import { ContextConsumer } from "../hook/AuthContext";
+
 export default function DashBoard() {
-  const { user, logOut } = userAuth();
+  const { user, logOut } = ContextConsumer();
   return (
     <div>
       <h1>Welcome {user?.userName}</h1>

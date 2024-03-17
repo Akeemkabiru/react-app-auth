@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "./AuthContext";
+import { ContextConsumer } from "../hook/AuthContext";
 
 export type loginProps = {
   onClick: () => void;
@@ -8,13 +8,13 @@ export type loginProps = {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = useAuth();
+  const { loginAction } = ContextConsumer();
   const input = {
     email: email,
     password: password,
   };
   function handleSubmit() {
-    if (email !== "" && password !== "") auth.loginAction(input);
+    if (email !== "" && password !== "") loginAction(input);
     console.log(email, password);
   }
   return (

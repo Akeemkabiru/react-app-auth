@@ -53,7 +53,9 @@ const AuthProvider = ({ children }: authProviderProps) => {
   );
 };
 
-const useAuth = () => {
-  return useContext(AuthContext);
-};
-export { AuthProvider, useAuth };
+function ContextConsumer() {
+  const useAuth = useContext(AuthContext);
+  if (!useAuth) throw new Error("Context Provider is used out of context");
+  return useAuth;
+}
+export { AuthProvider, ContextConsumer };

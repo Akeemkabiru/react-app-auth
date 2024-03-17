@@ -1,14 +1,10 @@
 import DashBoard from "./components/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
-import { AuthProvider } from "./components/AuthContext";
+import { AuthProvider } from "./hook/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
-  // const [openRegister, setOpenRegister] = useState(false);
-  // function handleOpenRegister() {
-  //   setOpenRegister(!openRegister);
-  // }
   return (
     <div>
       <BrowserRouter>
@@ -19,12 +15,6 @@ export default function App() {
               <Route path="/dashboard" element={<DashBoard />} />
             </Route>
           </Routes>
-          {/* <p>Hello World</p>
-        {openRegister ? (
-          <Register onClick={handleOpenRegister} />
-        ) : (
-          <Login onClick={handleOpenRegister} />
-        )} */}
         </AuthProvider>
       </BrowserRouter>
     </div>
