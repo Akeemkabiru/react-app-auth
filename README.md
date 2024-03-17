@@ -28,7 +28,7 @@ cd react-authentication-app
 
    npm install
 
-4. Open your web browser and navigate to `http://localhost:3000`.
+4. Open your web browser and navigate to `http://localhost:5173`.
 
 5. You will be directed to the login page. Enter your username and password and click the "Login" button.
 
