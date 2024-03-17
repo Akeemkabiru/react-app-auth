@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
-import UseAuth from "../hooks/AuthContext";
+import useAuth from "./AuthContext";
 //to check the token
-const { token } = UseAuth();
+
 export default function PrivateRoute() {
-  if (!token) return <Navigate to={"/login"} />;
+  const auth = useAuth();
+  if (!auth.token) return <Navigate to={"/login"} />;
 
   return <div>PrivateRoute</div>;
 }

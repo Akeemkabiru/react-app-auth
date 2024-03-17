@@ -1,5 +1,5 @@
 export default function DashBoard() {
-  const { user, logOut } = UserAuth();
+  const { user, logOut } = userAuth();
   return (
     <div>
       <h1>Welcome {user?.userName}</h1>

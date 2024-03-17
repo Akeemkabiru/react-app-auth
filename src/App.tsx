@@ -1,7 +1,7 @@
 import DashBoard from "./components/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
-import { AuthProvider } from "./hooks/AuthContext";
+import { AuthProvider } from "./components/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {

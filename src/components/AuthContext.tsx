@@ -1,13 +1,20 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+export type authProviderProps = {
+  children: React.ReactNode;
+};
+type loginActionProps = {
+  data: { email: string; password: string };
+};
+
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+const AuthProvider = ({ children }: authProviderProps) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
-  const loginAction = async (data: { email: string; password: string }) => {
+  const loginAction = async (data: loginActionProps) => {
     //Login and send data to the API endpoint
     try {
       const response = await fetch("your-api-endpoint/auth/login", {
@@ -46,8 +53,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AuthProvider;
-
-export const UseAuth = () => {
+const useAuth = () => {
   return useContext(AuthContext);
 };
+export { AuthProvider, useAuth };
