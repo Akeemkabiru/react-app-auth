@@ -1,23 +1,14 @@
-import DashBoard from "./components/DashBoard";
-import PrivateRoute from "./components/PrivateRoute";
-import Login from "./components/Login";
-import { AuthProvider } from "./hook/AuthContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React from "react";
-React;
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/DashBoard";
+
 export default function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route element={<PrivateRoute />}>
-              <Route path="/dashboard" element={<DashBoard />} />
-            </Route>
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

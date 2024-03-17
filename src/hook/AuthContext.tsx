@@ -1,61 +1,48 @@
-import React, { useContext, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-export type authProviderProps = {
+interface childrenProps {
   children: React.ReactNode;
-};
-type loginActionProps = {
-  data: { email: string; password: string };
+}
+
+type bodyProps = {
+  email: string;
+  password: string;
 };
 
-const AuthContext = createContext({});
+import { createContext, useContext, useState } from "react";
 
-const AuthProvider = ({ children }: authProviderProps) => {
+const AuthContext = createContext();
+
+function AuthProvider({ children }: childrenProps) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("site") || "");
-  const navigate = useNavigate();
-  const loginAction = async (data: loginActionProps) => {
-    //Login and send data to the API endpoint
-    try {
-      const response = await fetch("your-api-endpoint/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const res = await response.json();
-      //the response is an object of data containg the user and token as its element
-      if (res.data) {
-        setUser(res.data.user); //so that user information can be shared accross or displayed on dashboard
-        setToken(res.token);
-        localStorage.setItem("site", res.token); // set the token to localstorage or cookies
-        navigate("/dashboard");
-        return;
-      }
-      throw new Error(res.message);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const [token, setToken] = useState(localStorage.getItem("site"));
 
-  const logOut = () => {
-    setUser(null);
-    setToken("");
-    localStorage.removeItem("site");
-    navigate("/login");
-  };
+  //LOGIN
+  async function loginAction(body: bodyProps) {
+    try {
+      const res = await fetch("endpoint", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error("incorrect password or email");
+      const response = await res.json();
+      setToken(response.token);
+      setUser(response.data.user);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
 
   return (
-    <AuthContext.Provider value={{ token, user, loginAction, logOut }}>
+    <AuthContext.Provider value={{ user, token, loginAction }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-function ContextConsumer() {
+function AuthConsumer() {
   const useAuth = useContext(AuthContext);
-  if (!useAuth) throw new Error("Context Provider is used out of context");
+  if (!useAuth) throw new Error("");
   return useAuth;
 }
-export { AuthProvider, ContextConsumer };
+
+export { AuthProvider, AuthConsumer };
