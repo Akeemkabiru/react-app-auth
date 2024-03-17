@@ -34,17 +34,6 @@ cd react-authentication-app
 
 6. Upon successful authentication, you will be redirected to the dashboard page.
 
-## File Structure
-
-- `src/`
-  - `components/`: Contains React components.
-    - `Login.js`: Component for the login page.
-    - `Dashboard.js`: Component for the dashboard page.
-    - `PrivateRoute.js`: Component for defining protected routes.
-  - `contexts/`: Contains context files for managing authentication state.
-    - `AuthContext.js`: Context for managing authentication state.
-  - `App.js`: Main component where routes are defined.
-  - `index.js`: Entry point of the application.
 
    
 
