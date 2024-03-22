@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { AuthConsumer } from "../hook/AuthContext";
+import { useAuth } from "../hook/AuthContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loginAction } = AuthConsumer();
+  const { loginAction } = useAuth();
 
   const userCredentials = {
     username,

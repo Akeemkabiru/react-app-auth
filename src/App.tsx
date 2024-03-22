@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/DashBoard";
-import { AuthProvider } from "./hook/AuthContext";
+import AuthProvider from "./hook/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 export default function App() {
