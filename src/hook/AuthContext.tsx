@@ -6,15 +6,22 @@ type bodyProps = {
   username: string;
   password: string;
 };
-
+interface valueTypes {
+  loginAction: () => void;
+  token: string | null;
+  logOut: (body: bodyProps) => Promise<void>;
+  user: any | null;
+  registerAction: (body: bodyProps) => Promise<void>;
+}
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext();
+const AuthContext = createContext<null | valueTypes>(null);
 
-function AuthProvider({ children }: childrenProps) {
+export default function AuthProvider({ children }: childrenProps) {
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("site"));
+  const [user, setUser] = useState<null | string>(null);
   //LOGIN
   async function loginAction(body: bodyProps) {
     try {
@@ -23,33 +30,58 @@ function AuthProvider({ children }: childrenProps) {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(body),
       });
-      console.log(res);
       if (!res.ok) {
         throw new Error("incorrect password or username");
       } else {
         const response = await res.json();
-        console.log(response);
         setToken(response.token);
-        console.log(token);
+        setUser(response.data.user);
         navigate("/dashboard");
         return;
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      console.error(error.message);
     }
+  }
+  //REGISTER
+  async function registerAction(body: bodyProps) {
+    try {
+      const res = await fetch("https://fakestoreapi.com/auth/register", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        throw new Error("Registeration failed");
+      } else {
+        const response = await res.json();
+        setToken(response.token);
+        setUser(response.data.user);
+        navigate("/dashboard");
+        return;
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  //LOGOUT
+  function logOut() {
+    setToken("");
+    setUser(null);
+    navigate("/");
   }
 
   return (
-    <AuthContext.Provider value={{ token, loginAction }}>
+    <AuthContext.Provider
+      value={{ loginAction, token, logOut, user, registerAction }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
-function AuthConsumer() {
-  const useAuth = useContext(AuthContext);
-  if (!useAuth) throw new Error("Auth context use out of provider");
-  return useAuth;
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("Auth context use out of provider");
+  return context;
 }
-
-export { AuthProvider, AuthConsumer };
