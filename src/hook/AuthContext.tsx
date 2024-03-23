@@ -7,9 +7,9 @@ type bodyProps = {
   password: string;
 };
 interface valueTypes {
-  loginAction: () => void;
+  loginAction: (body: bodyProps) => void;
   token: string | null;
-  logOut: (body: bodyProps) => Promise<void>;
+  logOut: () => void;
   user: any | null;
   registerAction: (body: bodyProps) => Promise<void>;
 }
@@ -35,7 +35,7 @@ export default function AuthProvider({ children }: childrenProps) {
       } else {
         const response = await res.json();
         setToken(response.token);
-        setUser(response.data.user);
+        setUser(response.data?.user);
         navigate("/dashboard");
         return;
       }

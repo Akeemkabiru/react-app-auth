@@ -4,6 +4,6 @@ import { useAuth } from "../hook/AuthContext";
 export function PrivateRoute() {
   const navigate = useNavigate();
   const { token } = useAuth();
-  if (token) navigate("/");
+  if (!token) navigate("/");
   return <Outlet />;
 }
